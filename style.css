@@ -1,0 +1,807 @@
+/* --- CSS Переменные: Настройте свою цветовую палитру здесь --- */
+:root {
+    --primary-color: #1A2E4A; /* Основной темный цвет (для хедера, футера) */
+    --secondary-color: #007BFF; /* Дополнительный цвет (для кнопок, ссылок, цифр достижений) */
+    --accent-color: #FF8C00; /* Акцентный цвет (для hover, некоторых элементов) */
+    --price-color: #C0B283; /* Более мягкий цвет для цен */
+    --text-color: #333; /* Основной цвет текста на светлом фоне */
+    --text-on-dark: #FFFFFF; /* Цвет текста на темном фоне */
+    --bg-light: #FFFFFF; /* Светлый фон секций */
+    --bg-dark: #F8F8F8; /* Фон для чередования секций (чуть темнее светлого) */
+    --bg-dark-section: #111111; /* Темный фон для секции достижений (черный/почти черный) */
+    --border-color: #eee; /* Цвет границ */
+
+    /* Цвет для мобильного меню */
+    --mobile-menu-bg: #FFFFFF;
+    --mobile-menu-text: #333;
+    --mobile-menu-icon: #333; /* Цвет иконки гамбургера для белого меню */
+
+    /* --- Цвет для логотипа --- */
+    --logo-accent-color: #FFD700; /* Ярко-желтый или золотистый */
+}
+
+/* --- Базовые стили и сброс --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    padding-top: 60px;
+    overflow-x: hidden;
+    background-color: var(--bg-light);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: var(--accent-color);
+}
+
+
+/* --- Фиксированный Заголовок (Header) --- */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.fixed-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--text-on-dark);
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.logo .logo-name {
+    color: var(--logo-accent-color);
+    transform: skewX(-10deg);
+    display: inline-block;
+}
+
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.main-nav .nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* По умолчанию flex (для ПК) */
+    margin-right: 20px;
+}
+
+.main-nav .nav-menu li {
+    margin-left: 20px;
+}
+
+.main-nav .nav-menu a {
+    text-decoration: none;
+    color: var(--text-on-dark);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-nav .nav-menu a:hover {
+    color: var(--accent-color);
+}
+
+/* --- Телефон в хедере для ПК --- */
+.header-phone {
+    color: var(--text-on-dark);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: color 0.3s ease;
+     flex-shrink: 0;
+}
+.header-phone:hover {
+     color: var(--logo-accent-color);
+}
+.header-phone i {
+    margin-right: 8px;
+    color: var(--logo-accent-color);
+}
+
+
+/* --- Кнопка мобильного меню (Гамбургер) --- */
+.menu-toggle {
+    display: none; /* Управляется медиазапросами */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 30px; /* Ширина всей кнопки */
+    height: 20px; /* Уменьшена высота для 3 линий по 3px с промежутками */
+    position: relative;
+    z-index: 1100;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 30px; /* Ширина линии */
+    height: 3px; /* Толщина линии */
+    background-color: var(--text-on-dark);
+    border-radius: 3px;
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    transform-origin: center;
+}
+
+/* Анимация в крестик при открытом меню */
+.menu-toggle.is-active span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg); /* Скорректировано translateY */
+    background-color: var(--mobile-menu-icon);
+}
+.menu-toggle.is-active span:nth-child(2) {
+    opacity: 0;
+    background-color: var(--mobile-menu-icon);
+}
+.menu-toggle.is-active span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg); /* Скорректировано translateY */
+     background-color: var(--mobile-menu-icon);
+}
+
+
+/* --- Мобильное меню --- */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--mobile-menu-bg);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    padding-top: 60px;
+    overflow-y: auto;
+    box-shadow: inset -5px 0 10px rgba(0,0,0,0.1);
+}
+
+.mobile-menu.is-open {
+    transform: translateX(0);
+}
+
+.mobile-menu .nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.mobile-menu .nav-menu li {
+    margin: 15px 0;
+}
+
+.mobile-menu .nav-menu a {
+     font-size: 1.5em;
+     color: var(--mobile-menu-text);
+     text-decoration: none;
+     transition: color 0.3s ease;
+}
+.mobile-menu .nav-menu a:hover {
+    color: var(--secondary-color);
+}
+
+
+/* --- Фиксированная кнопка телефона (только для мобильных) --- */
+.fixed-phone-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: var(--secondary-color);
+    color: var(--text-on-dark);
+    padding: 10px 15px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 900;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.fixed-phone-button:hover {
+    background-color: darken(var(--secondary-color), 10%);
+}
+
+.fixed-phone-button i {
+    margin-right: 8px;
+    font-size: 1.2em;
+     color: var(--text-on-dark);
+}
+
+.fixed-phone-button .phone-number {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.fixed-phone-button .phone-text {
+    font-size: 0.8em;
+    opacity: 0.9;
+}
+
+
+/* --- Секции контента --- */
+.section {
+    padding: 80px 0;
+}
+
+/* Чередование фонов секций */
+.section:not(.achievements-section):nth-of-type(odd) {
+     background-color: var(--bg-light);
+     color: var(--text-color);
+}
+
+.section:not(.achievements-section):nth-of-type(even) {
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+}
+
+/* Секция достижений имеет свой темный фон */
+.achievements-section {
+    background-color: var(--bg-dark-section) !important;
+    color: var(--text-on-dark);
+}
+.achievements-section h2 {
+     color: var(--text-on-dark);
+}
+
+
+/* Секция "Первый экран" */
+.hero-section {
+    min-height: calc(100vh - 60px); /* Высота секции с учетом шапки */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    position: relative; /* Нужно для позиционирования фона относительно секции */
+    z-index: 1; /* Убедимся, что содержимое секции поверх оверлея */
+
+    /* --- Добавляем фоновое изображение и темный оверлей --- */
+    /* Используем градиент для оверлея, затем указываем изображение */
+    /* Исправлено некорректное значение прозрачности. 0.5 = 50% непрозрачности */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/photo1.avif') !important; /* Убедитесь, что путь к файлу и расширение верны (.avif или .png) */
+    background-size: cover; /* Изображение покроет всю секцию */
+    background-position: center; /* Центрируем изображение */
+    background-repeat: no-repeat; /* Изображение не повторяется */
+    /* background-attachment: fixed; /* Опционально: делает фон фиксированным при скролле */
+    /* --- Конец добавления фонового изображения --- */
+
+    /* Цвет текста на темном фоне - это БЕЛЫЙ */
+    color: var(--text-on-dark); /* Эта строка задает цвет всей секции */
+}
+
+/* Убедимся, что заголовки и параграфы внутри hero-section гарантированно белые */
+.hero-section h1,
+.hero-section p {
+    color: #FFFFFF !important; /* Явно задаем чисто белый цвет и используем !important */
+    /* color: var(--text-on-dark) !important; /* Можно использовать переменную с !important */
+}
+
+/* Для ссылок (кнопки) внутри hero-секции, если они тоже не белые */
+.hero-section a {
+     color: #FFFFFF !important; /* Явно задаем чисто белый цвет для ссылок/кнопок */
+}
+
+/* Убедитесь, что у самой кнопки .btn-primary тоже белый текст */
+.btn-primary {
+    display: inline-block !important; /* Добавили !important, чтобы принудительно отобразить кнопку */
+    background-color: var(--secondary-color);
+    color: var(--text-on-dark); /* Должен быть белым (#FFFFFF) */
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-size: 1.1em;
+    font-weight: bold;
+
+    outline: none;
+    border: none;
+    color: var(--text-on-dark) !important; /* Важно для белого текста на кнопке */
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+    color: var(--text-on-dark);
+}
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: var(--accent-color);
+    color: var(--text-on-dark) !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+/* --- Стили для заголовков секций --- */
+.section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    color: var(--primary-color);
+}
+.achievements-section h2 {
+     color: var(--text-on-dark);
+}
+
+
+/* --- Секция Достижений --- */
+.achievements-section .container {
+     /* Ограничиваем максимальную ширину контейнера с достижениями на ПК */
+     max-width: 800px; /* Примерное значение, можно подкорректировать */
+     margin: 0 auto; /* Центрируем контейнер */
+     padding: 0 15px; /* Сохраняем горизонтальные отступы */
+}
+
+.achievements-section .achievements-grid {
+     display: flex;
+     justify-content: space-around; /* Равномерно распределяем по горизонтали на ПК */
+     flex-wrap: wrap;
+     text-align: center;
+     padding: 20px 0;
+}
+
+.achievements-section .achievement-item {
+     margin: 0 20px; /* Отступ между элементами на ПК */
+     flex-basis: auto; /* Убираем базовую ширину, flexbox сам распределит */
+}
+
+.achievements-section .achievement-number {
+     font-size: 3em;
+     font-weight: 900; /* Очень жирный шрифт для цифр */
+     color: var(--secondary-color);
+     margin-bottom: 5px;
+     line-height: 1; /* Убираем лишний межстрочный интервал у цифр */
+}
+
+.achievements-section .achievement-text {
+     font-size: 1.1em;
+     font-weight: 700; /* Явно задаем font-weight 700 для большей жирности */
+     color: var(--text-on-dark);
+     line-height: 1.2; /* Уменьшаем межстрочный интервал для текста */
+     margin-top: 0; /* Убираем верхний отступ */
+}
+
+/* Медиазапрос для мобильных */
+@media (max-width: 768px) {
+     .achievements-section .container {
+          max-width: 100%; /* На мобильных используем всю ширину */
+          padding: 0 15px;
+     }
+
+     .achievements-section .achievements-grid {
+         flex-direction: column;
+         align-items: center;
+         padding: 0;
+         gap: 15px; /* Отступ между элементами */
+     }
+     .achievements-section .achievement-item {
+          margin: 0; /* Убираем margin, используем gap */
+          padding: 10px 0; /* Добавляем padding для сохранения небольших отступов */
+     }
+     .achievements-section .achievement-number {
+          font-size: 2.5em;
+          font-weight: 900;
+     }
+     .achievements-section .achievement-text {
+          font-size: 1em;
+          font-weight: 700;
+          line-height: 1.2;
+     }
+}
+
+
+/* --- Секция Услуг (Карточки) --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.service-card {
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    color: var(--secondary-color);
+}
+
+.service-card ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+.service-card li {
+     margin-bottom: 8px;
+     color: var(--text-color);
+     font-size: 1em;
+}
+.service-card li strong {
+     color: var(--price-color);
+}
+
+.prices-note {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+
+/* --- Секция FAQ --- */
+.faq-item {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+
+.faq-question {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 0;
+    position: relative;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.faq-question::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 10px;
+    font-size: 1.2em;
+    color: var(--secondary-color);
+    transition: transform 0.3s ease; /* Анимация для иконки +/- */
+}
+
+.faq-item.active .faq-question::after {
+    content: '-'; /* Меняем на минус */
+    /* Можно также добавить transform: rotate(180deg); если хочется анимировать вращение плюсика вместо смены знака */
+}
+
+.faq-answer {
+    /* display: none; */ /* <-- УДАЛИТЕ ЭТУ СТРОКУ */
+
+    /* Добавляем стили для плавной анимации: */
+    max-height: 0; /* Скрываем содержимое, задавая нулевую максимальную высоту */
+    overflow: hidden; /* Обрезаем все, что выходит за max-height */
+    padding-top: 0; /* Убираем верхний отступ, когда ответ скрыт */
+    opacity: 0; /* Делаем полностью прозрачным, когда скрыто */
+    transition: max-height 0.5s ease-in-out, padding-top 0.5s ease-in-out, opacity 0.3s ease; /* Определяем, какие свойства будут анимироваться и как долго */
+
+    /* Оставляем остальные стили ответа: */
+    /* padding: 10px 0 0 0; */ /* <-- ЭТУ СТРОКУ ТОЖЕ МОЖНО УДАЛИТЬ, т.к. padding-top задается выше и ниже */
+    color: #555;
+    line-height: 1.5;
+    font-size: 1em;
+    padding-bottom: 0; /* Убедимся, что нижний отступ не мешает схлопыванию */
+    padding-left: 0; /* Убедимся, что левый/правый отступы не мешают схлопыванию */
+    padding-right: 0;
+
+}
+
+.faq-item.active .faq-answer {
+    /* display: block; */ /* <-- УДАЛИТЕ ЭТУ СТРОКУ */
+
+    /* Определяем состояние, когда ответ открыт: */
+    max-height: 500px; /* Задаем достаточную высоту, чтобы показать весь контент. Возможно, потребуется подкорректировать, если ответы очень длинные. 500px обычно хватает для большинства текстов. */
+    padding-top: 10px; /* Возвращаем верхний отступ */
+    opacity: 1; /* Делаем полностью видимым */
+
+    /* Убедитесь, что здесь нет display: block; */
+}
+
+
+
+/* --- Секция Контакты и Карта --- */
+.contacts-map-section {
+    /* Фон этой секции будет задан чередованием за счет nth-of-type */
+}
+
+.contacts-map-section .container {
+     display: flex;
+     flex-direction: column; /* По умолчанию в столбец на мобильных */
+     gap: 40px;
+}
+
+.contacts-map-section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    color: var(--primary-color);
+}
+
+
+.contacts-map-section .contacts-map-container {
+     display: flex;
+     /* --- На мобильных - в столбец (порядок в HTML) --- */
+     flex-direction: column;
+     gap: 40px;
+}
+
+.contacts-map-section .contact-info-block {
+     flex: 1;
+}
+.contacts-map-section .contact-info-block h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 1.5em;
+}
+.contacts-map-section .contact-info-block p {
+    margin-bottom: 10px;
+}
+
+/* Стили для ссылок на WhatsApp и 2ГИС */
+.contact-info-block p a.whatsapp-link,
+.contact-info-block p a.2gis-link {
+     font-size: 0.9em; /* Чуть меньше размер ссылок рядом */
+     margin-left: 8px;
+     white-space: nowrap; /* Предотвращаем перенос строки */
+}
+.contact-info-block p a.whatsapp-link i {
+     color: #25D366; /* Цвет иконки WhatsApp */
+     margin-right: 3px;
+}
+.contact-info-block p a.2gis-link {
+     color: #F05A28; /* Цвет ссылки 2ГИС */
+}
+.contact-info-block p a.2gis-link i {
+     font-size: 0.8em; /* Меньше размер иконки внешней ссылки */
+}
+
+
+.contacts-map-section .map-block {
+     flex: 1.5;
+     overflow: hidden;
+}
+
+.contacts-map-section .map-block h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+     font-size: 1.5em;
+}
+
+.contacts-map-section .map-block iframe {
+     display: block;
+     width: 100%;
+     height: 450px;
+     border: none;
+}
+
+
+/* --- Подвал (Футер) --- */
+footer {
+    background-color: var(--primary-color);
+    color: var(--text-on-dark);
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.9em;
+}
+footer a {
+    color: var(--accent-color);
+}
+
+
+/* --- Утилитарные классы для скрытия/показа --- */
+/* Скрываем десктопное меню и телефон в хедере на мобильных */
+.desktop-only {
+    display: none !important;
+}
+
+/* Скрываем мобильное меню и фиксированный телефон на ПК */
+.mobile-only {
+    display: none !important;
+}
+
+
+/* --- Медиазапросы для адаптивности --- */
+
+/* Стили для экранов до 768px (мобильные) */
+@media (max-width: 768px) {
+    body {
+        padding-top: 0;
+    }
+
+    .fixed-header .container {
+         padding: 0 15px;
+    }
+    .logo {
+        font-size: 1.3em;
+    }
+
+    /* Показываем гамбургер и мобильный телефон */
+    .menu-toggle {
+        display: flex !important; /* Используем flex для гамбургера */
+    }
+    .fixed-phone-button {
+        display: flex !important;
+    }
+     /* Скрываем десктопные элементы */
+     .desktop-only {
+         display: none !important;
+     }
+
+    .hero-section {
+         min-height: 80vh;
+         padding: 100px 0;
+    }
+     .hero-section h1 {
+         font-size: 2em;
+     }
+     .hero-section p {
+         font-size: 1.1em;
+         margin-bottom: 15px;
+     }
+
+    .section {
+        padding: 50px 0;
+    }
+
+    .section h2 {
+         font-size: 2em;
+         margin-bottom: 30px;
+    }
+
+     /* Секция достижений на мобильных */
+     .achievements-section .achievement-item {
+          margin: 0; /* Убираем margin, используем gap */
+          padding: 10px 0; /* Добавляем padding для сохранения небольших отступов */
+     }
+
+
+    .service-card {
+         padding: 20px;
+    }
+
+    .faq-question {
+         font-size: 1em;
+    }
+     .faq-answer {
+         font-size: 0.95em;
+     }
+
+     .contacts-map-section .contact-info-block h3,
+     .contacts-map-section .map-block h3 {
+          font-size: 1.3em;
+     }
+
+     .contacts-map-section .map-block iframe {
+         height: 300px;
+     }
+
+     /* Убедимся, что мобильные элементы показываются */
+     .mobile-only { display: flex !important; }
+     /* Мобильное меню управляется JS (класс is-open), но display: flex для базового отображения */
+     .mobile-menu {
+         /*display: flex !important;*/
+     }
+
+}
+
+/* Стили для экранов больше 768px (ПК) */
+@media (min-width: 769px) {
+    body {
+        padding-top: 60px;
+    }
+
+    .fixed-header .container {
+         padding: 0;
+    }
+
+     .hero-section h1 {
+         font-size: 3em;
+     }
+
+     .section h2 {
+         font-size: 2.5em;
+     }
+
+    /* Показываем десктопные элементы */
+     .desktop-only { display: flex !important; }
+    /* Скрываем мобильные элементы */
+    .mobile-only,
+    .menu-toggle,
+    .fixed-phone-button,
+    .mobile-menu {
+        display: none !important;
+    }
+
+     /* Располагаем карту слева, контакты справа на ПК */
+     .contacts-map-section .contacts-map-container {
+         flex-direction: row;
+         justify-content: space-between;
+         align-items: flex-start;
+     }
+
+      .contacts-map-section .map-block {
+          flex: 1.5;
+           padding-right: 40px;
+      }
+
+      .contacts-map-section .contact-info-block {
+          flex: 1;
+      }
+
+      .contacts-map-section .map-block iframe {
+           width: 100%;
+           height: 450px;
+      }
+
+
+     /* Корректируем расположение меню и телефона на ПК */
+     .main-nav .nav-menu {
+         display: flex !important; /* Убедимся, что меню показывается на ПК */
+         margin-left: auto;
+     }
+      .header-phone {
+          margin-left: 30px;
+      }
+
+}
+
+/* Вспомогательный класс для блокировки скролла body при открытом меню */
+body.no-scroll {
+    overflow: hidden;
+}
